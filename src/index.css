@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+
+body {
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'Roboto Mono', Arial, sans-serif;
+	font-size: 20px;
+	background-color: rgb(200,194,204);
+	color: rgb(56, 54, 55);
+}
+
+img {
+	margin: 0 auto;
+	width: 70vw;
+}
+
+p {
+	margin: 0 auto;
+	max-width: 50vw;
+	text-align: justify;
+	line-height: 2em;
+}
+
+.link {
+	text-decoration: none;
+	color: rgb(126, 168, 190);
+}
+
+.link:visited {
+	color: rgb(120, 113, 170);
+}
+
+.link:active {
+	color: rgb(203, 133, 137);
+}
+
+.dark {
+	background-color: rgba(50, 50, 50, 1);
+	color: rgb(200,194,204);
+}
+
+.dark .link {
+	color: rgb(153, 178, 221);
+}
