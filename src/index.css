@@ -43,3 +43,7 @@ p {
 .dark .link {
 	color: rgb(153, 178, 221);
 }
+
+#logo {
+	max-width: 40vw;
+}
