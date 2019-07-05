@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../assets/tri-be_logo.png'
 
 const TrackList = props => {
 	let trackList = props.tracks.map((track, index ) => {

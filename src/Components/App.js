@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import { Router, navigate } from '@reach/router';
 import axios from 'axios';
 import ArtistList from './ArtistList';
 import TrackList from './TrackList';
+import TopTracks from './TopTracks';
+import Home from './Home';
 
-const API_URL = (process.env.NODE_ENV !== 'production') ? 'http://localhost:4321' : 'https://audio-vision.herokuapp.com';
+const API_URL = (process.env.NODE_ENV !== "production") ? "http://localhost:4321" : "https://audio-vision.herokuapp.com";
 
 export default class App extends Component {
-    state = { query: '', artists: null, tracks: null };
+    state = { query: "", artists: null, tracks: null };
 
     updateQuery = event => {
-        console.log('event', event.target.value);
+        console.log("event", event.target.value);
         this.setState({ query: event.target.value });
     }
 
@@ -21,13 +24,14 @@ export default class App extends Component {
                     this.setState({
                         artists: results.data.items
                     })
-                    console.log("artist search results:", this.state.artists);
+                    console.log("artist search results on frontend:", this.state.artists);
+                    navigate("/artists");
                 } else { this.setState({ artists: null }) }
             })
             .catch(error => {
                 console.log("There was an error fetching artist data", error.message);
             })
-        console.log('this.state', this.state)
+        console.log("this.state", this.state)
     }
 
     searchTracks = () => {
@@ -39,14 +43,15 @@ export default class App extends Component {
                     this.setState({
                         tracks: results.data.tracks.items
                     })
+                    navigate("/tracks");
                 } else { this.setState({ tracks: null }) }
             })
-        console.log('this.state', this.state)
+        console.log("this.state", this.state)
     }
 
     handleKeyPress = event => {
-        if (event.key === 'Enter') {
-            console.log('this.state', this.state)
+        if (event.key === "Enter") {
+            console.log("this.state", this.state)
         }
     }
 
@@ -57,14 +62,16 @@ export default class App extends Component {
               <input
                 onChange={this.updateQuery}
                 onKeyPress={this.handleKeyPress}
-                placeholder='Search for an artist'
+                placeholder="Search for an artist"
               />
               <button onClick={this.searchArtists}>Search Artists</button>
               <button onClick={this.searchTracks}>Search Tracks</button>
-              <div style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}>
-                  {this.state.artists ? <ArtistList artists={this.state.artists} /> : null }
-                  {this.state.tracks ? <TrackList tracks={this.state.tracks} /> : null}
-              </div>
+              <Router>
+                <Home path="/" />
+                <ArtistList path="/artists" artists={this.state.artists}/>
+                <TrackList path="/tracks" tracks={this.state.tracks}/>
+                <TopTracks path="/:name" />
+              </Router>
             </div>
         )
     }
