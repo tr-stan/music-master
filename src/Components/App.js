@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, navigate } from '@reach/router';
+import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
 import ArtistList from './ArtistList';
 import ArtistProfile from './ArtistProfile';
@@ -101,7 +101,7 @@ export default class App extends Component {
     render() {
         return (
             <div id="app">
-              <h2>Music Master</h2>
+              <Link to="/"><h2>Music Master</h2></Link>
               <input
                 onChange={this.updateQuery}
                 onKeyPress={this.handleKeyPress}
@@ -116,9 +116,9 @@ export default class App extends Component {
                 <ArtistProfile path="/artists/:artistName" artist={this.state.artist} getTopTracks={this.getTopTracks}>
                     <TopTracks path="top-ten" topTracks={this.state.topTracks} />
                 </ArtistProfile>
-                <TrackList path="/tracks" tracks={this.state.tracks} getTracks={this.getTracks}>
-                    <TrackProfile path=":trackName" track={this.state.track}/>
+                <TrackList path="/tracks" tracks={this.state.tracks} getTrack={this.getTrack}>
                 </TrackList>
+                    <TrackProfile path="/tracks/:trackName" track={this.state.track}/>
                 <BadSearch path="/bad-search" />
               </Router>
             </div>

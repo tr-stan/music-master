@@ -30183,10 +30183,10 @@ var TrackList = function TrackList(_ref) {
   if (tracks) {
     var trackList = tracks.map(function (track, index) {
       console.log("track:", track);
-      return _react.default.createElement("button", {
-        onClick: getTrack.bind(null, track, track.name)
-      }, _react.default.createElement("p", {
+      return _react.default.createElement("li", {
         key: track.id
+      }, _react.default.createElement("button", {
+        onClick: getTrack.bind(null, track, track.name)
       }, track.name));
     });
     return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Tracks"), _react.default.createElement("ul", {
@@ -30214,7 +30214,7 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TrackProfile = function TrackProfile() {
-  return null;
+  return _react.default.createElement("h1", null, "Track Profile");
 };
 
 var _default = TrackProfile;
@@ -30466,7 +30466,9 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement("div", {
         id: "app"
-      }, _react.default.createElement("h2", null, "Music Master"), _react.default.createElement("input", {
+      }, _react.default.createElement(_router.Link, {
+        to: "/"
+      }, _react.default.createElement("h2", null, "Music Master")), _react.default.createElement("input", {
         onChange: this.updateQuery,
         onKeyPress: this.handleKeyPress,
         placeholder: "Search for an artist"
@@ -30490,11 +30492,11 @@ function (_Component) {
       })), _react.default.createElement(_TrackList.default, {
         path: "/tracks",
         tracks: this.state.tracks,
-        getTracks: this.getTracks
-      }, _react.default.createElement(_TrackProfile.default, {
-        path: ":trackName",
+        getTrack: this.getTrack
+      }), _react.default.createElement(_TrackProfile.default, {
+        path: "/tracks/:trackName",
         track: this.state.track
-      })), _react.default.createElement(_BadSearch.default, {
+      }), _react.default.createElement(_BadSearch.default, {
         path: "/bad-search"
       })));
     }
@@ -30618,7 +30620,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62466" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56746" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -5,7 +5,7 @@ const TrackList = ({ tracks, getTrack }) => {
         let trackList = tracks.map((track, index) => {
             console.log("track:", track)
             return (
-                <button onClick={getTrack.bind(null, track, track.name)}><p key={track.id}>{track.name}</p></button>
+                <li key={track.id}><button onClick={getTrack.bind(null, track, track.name)}>{track.name}</button></li>
             )
         })
         return (

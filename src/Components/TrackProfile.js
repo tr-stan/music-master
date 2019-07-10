@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TrackProfile = () => {
-	return null;
+	return <h1>Track Profile</h1>;
 }
 
 export default TrackProfile;
