@@ -30090,8 +30090,8 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"assets/tri-be_logo.png":[function(require,module,exports) {
-module.exports = "/tri-be_logo.db2c8b15.png";
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"assets/mirror-ball.png":[function(require,module,exports) {
+module.exports = "/mirror-ball.bf2fa7a4.png";
 },{}],"Components/ArtistList.js":[function(require,module,exports) {
 "use strict";
 
@@ -30102,7 +30102,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _triBe_logo = _interopRequireDefault(require("../assets/tri-be_logo.png"));
+var _mirrorBall = _interopRequireDefault(require("../assets/mirror-ball.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30111,30 +30111,15 @@ var ArtistList = function ArtistList(props) {
     var artistList = props.artists.map(function (artist, index) {
       console.log("artist images:", artist.images);
       return _react.default.createElement("li", {
-        style: {
-          padding: '10px'
-        },
         key: index,
         id: artist.id
       }, _react.default.createElement("button", {
         onClick: props.getArtist.bind(null, artist, artist.name)
       }, _react.default.createElement("img", {
-        style: {
-          maxWidth: '3vw',
-          height: 'auto'
-        },
-        src: artist.images.length ? artist.images[0]['url'] : _triBe_logo.default
-      }), _react.default.createElement("p", {
-        style: {
-          display: 'inline'
-        }
-      }, artist.name)));
+        src: artist.images.length ? artist.images[0]['url'] : _mirrorBall.default
+      }), _react.default.createElement("h3", null, artist.name)));
     });
-    return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Artists"), _react.default.createElement("ul", {
-      style: {
-        listStyleType: 'none'
-      }
-    }, artistList));
+    return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Artists"), _react.default.createElement("ul", null, artistList));
   } else {
     return _react.default.createElement("div", null, _react.default.createElement("p", null, "Your search returned no results. Please try another search."));
   }
@@ -30142,7 +30127,7 @@ var ArtistList = function ArtistList(props) {
 
 var _default = ArtistList;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../assets/tri-be_logo.png":"assets/tri-be_logo.png"}],"Components/ArtistProfile.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/mirror-ball.png":"assets/mirror-ball.png"}],"Components/ArtistProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30152,19 +30137,29 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _mirrorBall = _interopRequireDefault(require("../assets/mirror-ball.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ArtistProfile = function ArtistProfile(props) {
-  if (props) {
-    return _react.default.createElement("div", null, _react.default.createElement("h2", null, "artist profile"));
+var ArtistProfile = function ArtistProfile(_ref) {
+  var artist = _ref.artist;
+
+  if (artist) {
+    return _react.default.createElement("div", {
+      className: "profile"
+    }, _react.default.createElement("img", {
+      src: artist.images.length ? artist.images[0]['url'] : _mirrorBall.default
+    }), _react.default.createElement("div", {
+      className: "details"
+    }, _react.default.createElement("h2", null, artist.name)));
   } else {
-    return _react.default.createElement("div", null, _react.default.createElement("p", null, "Your search returned no results. Please try another search."));
+    return _react.default.createElement("div", null, _react.default.createElement("p", null, "Could not retrieve artist data. Please try again."));
   }
 };
 
 var _default = ArtistProfile;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Components/TrackList.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/mirror-ball.png":"assets/mirror-ball.png"}],"Components/TrackList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30173,6 +30168,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _mirrorBall = _interopRequireDefault(require("../assets/mirror-ball.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30187,13 +30184,11 @@ var TrackList = function TrackList(_ref) {
         key: track.id
       }, _react.default.createElement("button", {
         onClick: getTrack.bind(null, track, track.name)
-      }, track.name));
+      }, _react.default.createElement("img", {
+        src: track.album.images.length > 0 ? track.album.images[0].url : _mirrorBall.default
+      }), _react.default.createElement("h3", null, track.name)));
     });
-    return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Tracks"), _react.default.createElement("ul", {
-      style: {
-        listStyleType: 'none'
-      }
-    }, trackList));
+    return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Tracks"), _react.default.createElement("ul", null, trackList));
   } else {
     return _react.default.createElement("div", null, _react.default.createElement("p", null, "Your search returned no results. Please try another search."));
   }
@@ -30201,7 +30196,7 @@ var TrackList = function TrackList(_ref) {
 
 var _default = TrackList;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Components/TrackProfile.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/mirror-ball.png":"assets/mirror-ball.png"}],"Components/TrackProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30211,15 +30206,29 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _mirrorBall = _interopRequireDefault(require("../assets/mirror-ball.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TrackProfile = function TrackProfile() {
-  return _react.default.createElement("h1", null, "Track Profile");
+var TrackProfile = function TrackProfile(_ref) {
+  var track = _ref.track;
+
+  if (track) {
+    return _react.default.createElement("div", {
+      className: "profile"
+    }, _react.default.createElement("img", {
+      src: track.album.images.length > 0 ? track.album.images[0].url : _mirrorBall.default
+    }), _react.default.createElement("div", {
+      className: "details"
+    }, _react.default.createElement("h2", null, track.name), _react.default.createElement("p", null, "Album: ", track.album.name), _react.default.createElement("p", null, "By: ", track.artists[0].name)));
+  } else {
+    return _react.default.createElement("div", null, _react.default.createElement("p", null, "Could not retrieve track data. Please try again."));
+  }
 };
 
 var _default = TrackProfile;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Components/TopTracks.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/mirror-ball.png":"assets/mirror-ball.png"}],"Components/TopTracks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30280,7 +30289,79 @@ var BadSearch = function BadSearch() {
 
 var _default = BadSearch;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Components/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"Components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30307,6 +30388,8 @@ var _TopTracks = _interopRequireDefault(require("./TopTracks"));
 var _Home = _interopRequireDefault(require("./Home"));
 
 var _BadSearch = _interopRequireDefault(require("./BadSearch"));
+
+require("../index.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30468,7 +30551,9 @@ function (_Component) {
         id: "app"
       }, _react.default.createElement(_router.Link, {
         to: "/"
-      }, _react.default.createElement("h2", null, "Music Master")), _react.default.createElement("input", {
+      }, _react.default.createElement("h2", null, "Music Master")), _react.default.createElement("div", {
+        id: "search"
+      }, _react.default.createElement("input", {
         onChange: this.updateQuery,
         onKeyPress: this.handleKeyPress,
         placeholder: "Search for an artist"
@@ -30476,7 +30561,7 @@ function (_Component) {
         onClick: this.searchArtists
       }, "Search Artists"), _react.default.createElement("button", {
         onClick: this.searchTracks
-      }, "Search Tracks"), _react.default.createElement(_router.Router, null, _react.default.createElement(_Home.default, {
+      }, "Search Tracks")), _react.default.createElement(_router.Router, null, _react.default.createElement(_Home.default, {
         path: "/"
       }), _react.default.createElement(_ArtistList.default, {
         path: "/artists",
@@ -30506,79 +30591,7 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = App;
-},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","axios":"../node_modules/axios/index.js","./ArtistList":"Components/ArtistList.js","./ArtistProfile":"Components/ArtistProfile.js","./TrackList":"Components/TrackList.js","./TrackProfile":"Components/TrackProfile.js","./TopTracks":"Components/TopTracks.js","./Home":"Components/Home.js","./BadSearch":"Components/BadSearch.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","axios":"../node_modules/axios/index.js","./ArtistList":"Components/ArtistList.js","./ArtistProfile":"Components/ArtistProfile.js","./TrackList":"Components/TrackList.js","./TrackProfile":"Components/TrackProfile.js","./TopTracks":"Components/TopTracks.js","./Home":"Components/Home.js","./BadSearch":"Components/BadSearch.js","../index.css":"index.css"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -30620,7 +30633,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56746" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58976" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

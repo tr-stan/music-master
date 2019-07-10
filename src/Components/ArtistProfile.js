@@ -1,17 +1,20 @@
 import React from 'react';
+import discoBall from '../assets/mirror-ball.png';
 
-const ArtistProfile = (props) => {
-	if (props) {
+const ArtistProfile = ({ artist }) => {
+    if (artist) {
         return (
-            <div>
-				<h2>artist profile</h2>
-				
+            <div className="profile">
+				<img src={artist.images.length ? artist.images[0]['url'] : discoBall} />
+				<div className="details">
+					<h2>{artist.name}</h2>
+				</div>
 			</div>
         );
     } else {
         return (
             <div>
-				<p>Your search returned no results. Please try another search.</p>
+				<p>Could not retrieve artist data. Please try again.</p>
 			</div>
         )
     }

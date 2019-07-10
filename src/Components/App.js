@@ -8,6 +8,7 @@ import TrackProfile from './TrackProfile';
 import TopTracks from './TopTracks';
 import Home from './Home';
 import BadSearch from './BadSearch';
+import '../index.css';
 
 const API_URL = (process.env.NODE_ENV !== "production") ? "http://localhost:4321" : "https://audio-vision.herokuapp.com";
 
@@ -102,6 +103,7 @@ export default class App extends Component {
         return (
             <div id="app">
               <Link to="/"><h2>Music Master</h2></Link>
+              <div id="search">
               <input
                 onChange={this.updateQuery}
                 onKeyPress={this.handleKeyPress}
@@ -109,6 +111,7 @@ export default class App extends Component {
               />
               <button onClick={this.searchArtists}>Search Artists</button>
               <button onClick={this.searchTracks}>Search Tracks</button>
+              </div>
               <Router>
                 <Home path="/" />
                 <ArtistList path="/artists" artists={this.state.artists} getArtist={this.getArtist}>
@@ -118,7 +121,7 @@ export default class App extends Component {
                 </ArtistProfile>
                 <TrackList path="/tracks" tracks={this.state.tracks} getTrack={this.getTrack}>
                 </TrackList>
-                    <TrackProfile path="/tracks/:trackName" track={this.state.track}/>
+                <TrackProfile path="/tracks/:trackName" track={this.state.track}/>
                 <BadSearch path="/bad-search" />
               </Router>
             </div>
