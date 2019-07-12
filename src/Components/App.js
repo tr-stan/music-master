@@ -26,11 +26,13 @@ export default class App extends Component {
             .then(results => {
                 if (results.data.total > 0) {
                     this.setState({
-                        artists: results.data.items
+                        artists: results.data.items,
+                        query: ''
                     });
                     console.log("artist search results on frontend:", this.state.artists);
                     navigate("/artists");
                 } else {
+                    this.setState({ query: '' });
                     navigate("/bad-search");
                     // this.setState({ artists: null });
                 }
@@ -49,11 +51,12 @@ export default class App extends Component {
                 console.log("Track results on frontend:", results.data.tracks)
                 if (results.data.tracks.total > 0) {
                     this.setState({
-                        tracks: results.data.tracks.items
+                        tracks: results.data.tracks.items,
+                        query: ''
                     })
                     navigate("/tracks");
                 } else {
-                    this.setState({ tracks: null });
+                    this.setState({ query: '' });
                     navigate("/bad-search");
                 }
             })
@@ -64,9 +67,21 @@ export default class App extends Component {
         console.log("this.state", this.state);
     }
 
-    getArtist = (artist, artistName) => {
-        this.setState({ artist: artist });
-        navigate(`/artists/${artistName}`);
+    getArtist = (artist, artistName, artistId) => {
+        axios.get(`http://localhost:4321/artists/${artistId}/top-tracks`)
+            .then(results => {
+                console.log("results from top tracks fetch", results.data.tracks);
+                this.setState({
+                    topTracks: results.data.tracks,
+                    artist: artist
+                });
+                console.log("top tracks of search:", this.state.topTracks);
+            })
+            .then(navigate(`/artists/${artistName}`))
+            .catch(error => {
+                console.log("There was an error fetching top tracks", error.message);
+                navigate("/bad-search");
+            })
     }
 
     getTrack = (track, trackName) => {
@@ -74,27 +89,28 @@ export default class App extends Component {
         navigate(`/tracks/${trackName}`);
     }
 
-    getTopTracks = (id, name) => {
-        axios.get(`http://localhost:4321/artists/${id}/top-tracks`)
-            .then(results => {
-                console.log("results from fetch", results.data.tracks);
-                this.setState({
-                    topTracks: results.data.tracks
-                });
-                console.log("top tracks of search:", this.state.topTracks);
-                return name;
-            })
-            .then(name => {
-                navigate(`/artists/${name}/top-ten`);
-            })
-            .catch(error => {
-                console.log("There was an error fetching top tracks", error.message);
-                navigate("/bad-search");
-            })
-    }
+    // getTopTracks = (id, name) => {
+    //     axios.get(`http://localhost:4321/artists/${id}/top-tracks`)
+    //         .then(results => {
+    //             console.log("results from fetch", results.data.tracks);
+    //             this.setState({
+    //                 topTracks: results.data.tracks
+    //             });
+    //             console.log("top tracks of search:", this.state.topTracks);
+    //             return name;
+    //         })
+    //         .then(name => {
+    //             navigate(`/artists/${name}/top-ten`);
+    //         })
+    //         .catch(error => {
+    //             console.log("There was an error fetching top tracks", error.message);
+    //             navigate("/bad-search");
+    //         })
+    // }
 
     handleKeyPress = event => {
         if (event.key === "Enter") {
+            event.preventDefault();
             console.log("this.state", this.state)
         }
     }
@@ -102,9 +118,10 @@ export default class App extends Component {
     render() {
         return (
             <div id="app">
-              <Link to="/"><h2>Music Master</h2></Link>
+              <Link className="link" to="/"><h2>Spotify Search Master</h2></Link>
               <div id="search">
               <input
+                value={this.state.query}
                 onChange={this.updateQuery}
                 onKeyPress={this.handleKeyPress}
                 placeholder="Search for an artist"
@@ -116,8 +133,7 @@ export default class App extends Component {
                 <Home path="/" />
                 <ArtistList path="/artists" artists={this.state.artists} getArtist={this.getArtist}>
                 </ArtistList>
-                <ArtistProfile path="/artists/:artistName" artist={this.state.artist} getTopTracks={this.getTopTracks}>
-                    <TopTracks path="top-ten" topTracks={this.state.topTracks} />
+                <ArtistProfile path="/artists/:artistName" artist={this.state.artist} topTracks={this.state.topTracks} getTrack={this.getTrack}>
                 </ArtistProfile>
                 <TrackList path="/tracks" tracks={this.state.tracks} getTrack={this.getTrack}>
                 </TrackList>

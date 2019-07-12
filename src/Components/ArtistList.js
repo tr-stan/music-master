@@ -7,7 +7,7 @@ const ArtistList = props => {
             console.log("artist images:", artist.images)
             return (
                 <li key={index} id={artist.id}>
-					<button onClick={props.getArtist.bind(null, artist, artist.name)}>
+					<button onClick={props.getArtist.bind(null, artist, artist.name, artist.id)}>
 					<img src={artist.images.length ? artist.images[0]['url'] : discoBall} />
 					<h3>{artist.name}</h3>
 					</button>
