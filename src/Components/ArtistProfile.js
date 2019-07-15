@@ -8,9 +8,7 @@ const ArtistProfile = props => {
             <div className="profile">
 				<h2 className="name">{props.artist.name}</h2>
 				<img src={props.artist.images.length ? props.artist.images[0]['url'] : discoBall} />
-				<div className="details">
-					<TopTracks topTracks={props.topTracks} getTrack={props.getTrack}/>
-				</div>
+				<TopTracks topTracks={props.topTracks} getTrack={props.getTrack}/>
 			</div>
         );
     } else {

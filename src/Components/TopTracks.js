@@ -6,10 +6,12 @@ const TopTracks = props => {
 		return (<li key={track.id} onClick={props.getTrack.bind(null, track, track.name)}>{track.name}</li>)
 	})
 	return (
-		<ul>
-		<h2>Top Tracks</h2>
-		{tracks}
-		</ul>
+		<div className="details">
+			<h3>Top Tracks on Spotify</h3>
+			<ul>
+			{tracks}
+			</ul>
+		</div>
 	)
 }
 

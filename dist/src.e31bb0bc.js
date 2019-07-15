@@ -30147,7 +30147,9 @@ var TopTracks = function TopTracks(props) {
       onClick: props.getTrack.bind(null, track, track.name)
     }, track.name);
   });
-  return _react.default.createElement("ul", null, _react.default.createElement("h2", null, "Top Tracks"), tracks);
+  return _react.default.createElement("div", {
+    className: "details"
+  }, _react.default.createElement("h3", null, "Top Tracks on Spotify"), _react.default.createElement("ul", null, tracks));
 };
 
 var _default = TopTracks;
@@ -30176,12 +30178,10 @@ var ArtistProfile = function ArtistProfile(props) {
       className: "name"
     }, props.artist.name), _react.default.createElement("img", {
       src: props.artist.images.length ? props.artist.images[0]['url'] : _mirrorBall.default
-    }), _react.default.createElement("div", {
-      className: "details"
-    }, _react.default.createElement(_TopTracks.default, {
+    }), _react.default.createElement(_TopTracks.default, {
       topTracks: props.topTracks,
       getTrack: props.getTrack
-    })));
+    }));
   } else {
     return _react.default.createElement("div", null, _react.default.createElement("p", null, "Could not retrieve artist data. Please try again."));
   }
@@ -30468,7 +30468,6 @@ function (_Component) {
           });
 
           console.log("artist search results on frontend:", _this.state.artists);
-          (0, _router.navigate)("/artists");
         } else {
           _this.setState({
             query: ''
@@ -30476,7 +30475,7 @@ function (_Component) {
 
           (0, _router.navigate)("/bad-search"); // this.setState({ artists: null });
         }
-      }).catch(function (error) {
+      }).then((0, _router.navigate)("/artists")).catch(function (error) {
         console.log("There was an error fetching artist data", error.message);
         (0, _router.navigate)("/bad-search");
       });
@@ -30495,8 +30494,6 @@ function (_Component) {
             tracks: results.data.tracks.items,
             query: ''
           });
-
-          (0, _router.navigate)("/tracks");
         } else {
           _this.setState({
             query: ''
@@ -30504,7 +30501,7 @@ function (_Component) {
 
           (0, _router.navigate)("/bad-search");
         }
-      }).catch(function (error) {
+      }).then((0, _router.navigate)("/tracks")).catch(function (error) {
         console.log("There was an error fetching track data", error.message);
         (0, _router.navigate)("/bad-search");
       });
@@ -30551,7 +30548,7 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement("div", {
         id: "app"
-      }, _react.default.createElement(_router.Link, {
+      }, _react.default.createElement("header", null, _react.default.createElement(_router.Link, {
         className: "link",
         to: "/"
       }, _react.default.createElement("h2", null, "Spotify Search Master")), _react.default.createElement("div", {
@@ -30565,7 +30562,7 @@ function (_Component) {
         onClick: this.searchArtists
       }, "Search Artists"), _react.default.createElement("button", {
         onClick: this.searchTracks
-      }, "Search Tracks")), _react.default.createElement(_router.Router, null, _react.default.createElement(_Home.default, {
+      }, "Search Tracks"))), _react.default.createElement(_router.Router, null, _react.default.createElement(_Home.default, {
         path: "/"
       }), _react.default.createElement(_ArtistList.default, {
         path: "/artists",

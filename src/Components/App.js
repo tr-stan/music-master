@@ -30,13 +30,13 @@ export default class App extends Component {
                         query: ''
                     });
                     console.log("artist search results on frontend:", this.state.artists);
-                    navigate("/artists");
                 } else {
                     this.setState({ query: '' });
                     navigate("/bad-search");
                     // this.setState({ artists: null });
                 }
             })
+            .then(navigate("/artists"))
             .catch(error => {
                 console.log("There was an error fetching artist data", error.message);
                 navigate("/bad-search");
@@ -54,12 +54,12 @@ export default class App extends Component {
                         tracks: results.data.tracks.items,
                         query: ''
                     })
-                    navigate("/tracks");
                 } else {
                     this.setState({ query: '' });
                     navigate("/bad-search");
                 }
             })
+            .then(navigate("/tracks"))
             .catch(error => {
                 console.log("There was an error fetching track data", error.message);
                 navigate("/bad-search");
@@ -118,28 +118,30 @@ export default class App extends Component {
     render() {
         return (
             <div id="app">
-              <Link className="link" to="/"><h2>Spotify Search Master</h2></Link>
-              <div id="search">
-              <input
-                value={this.state.query}
-                onChange={this.updateQuery}
-                onKeyPress={this.handleKeyPress}
-                placeholder="Search for an artist"
-              />
-              <button onClick={this.searchArtists}>Search Artists</button>
-              <button onClick={this.searchTracks}>Search Tracks</button>
-              </div>
-              <Router>
-                <Home path="/" />
-                <ArtistList path="/artists" artists={this.state.artists} getArtist={this.getArtist}>
-                </ArtistList>
-                <ArtistProfile path="/artists/:artistName" artist={this.state.artist} topTracks={this.state.topTracks} getTrack={this.getTrack}>
-                </ArtistProfile>
-                <TrackList path="/tracks" tracks={this.state.tracks} getTrack={this.getTrack}>
-                </TrackList>
-                <TrackProfile path="/tracks/:trackName" track={this.state.track}/>
-                <BadSearch path="/bad-search" />
-              </Router>
+                <header>
+                    <Link className="link" to="/"><h2>Spotify Search Master</h2></Link>
+                    <div id="search">
+                    <input
+                    value={this.state.query}
+                    onChange={this.updateQuery}
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="Search for an artist"
+                    />
+                    <button onClick={this.searchArtists}>Search Artists</button>
+                    <button onClick={this.searchTracks}>Search Tracks</button>
+                    </div>
+                </header>
+                <Router>
+                    <Home path="/" />
+                    <ArtistList path="/artists" artists={this.state.artists} getArtist={this.getArtist}>
+                    </ArtistList>
+                    <ArtistProfile path="/artists/:artistName" artist={this.state.artist} topTracks={this.state.topTracks} getTrack={this.getTrack}>
+                    </ArtistProfile>
+                    <TrackList path="/tracks" tracks={this.state.tracks} getTrack={this.getTrack}>
+                    </TrackList>
+                    <TrackProfile path="/tracks/:trackName" track={this.state.track}/>
+                    <BadSearch path="/bad-search" />
+                </Router>
             </div>
         )
     }
