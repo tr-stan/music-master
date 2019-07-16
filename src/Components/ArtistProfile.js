@@ -6,9 +6,11 @@ const ArtistProfile = props => {
     if (props.artist) {
         return (
             <div className="profile">
-				<h2 className="name">{props.artist.name}</h2>
 				<img src={props.artist.images.length ? props.artist.images[0]['url'] : discoBall} />
+				<div className="details">
+				<h2 className="name">{props.artist.name}</h2>
 				<TopTracks topTracks={props.topTracks} getTrack={props.getTrack}/>
+				</div>
 			</div>
         );
     } else {

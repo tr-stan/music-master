@@ -127,8 +127,10 @@ export default class App extends Component {
                     onKeyPress={this.handleKeyPress}
                     placeholder="Search for an artist"
                     />
+                    <div>
                     <button onClick={this.searchArtists}>Search Artists</button>
                     <button onClick={this.searchTracks}>Search Tracks</button>
+                    </div>
                     </div>
                 </header>
                 <Router>
@@ -139,7 +141,7 @@ export default class App extends Component {
                     </ArtistProfile>
                     <TrackList path="/tracks" tracks={this.state.tracks} getTrack={this.getTrack}>
                     </TrackList>
-                    <TrackProfile path="/tracks/:trackName" track={this.state.track}/>
+                    <TrackProfile path="/tracks/:trackName" track={this.state.track} getArtist={this.getArtist}/>
                     <BadSearch path="/bad-search" />
                 </Router>
             </div>

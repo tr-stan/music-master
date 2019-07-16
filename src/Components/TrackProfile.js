@@ -8,8 +8,9 @@ const TrackProfile = ({ track }) => {
 				<img src={track.album.images.length > 0 ? track.album.images[0].url : discoBall} />
 				<div className="details">
 					<h2>{track.name}</h2>
-					<p>Album: {track.album.name}</p>
 					<p>By: {track.artists[0].name}</p>
+					<p>Album: {track.album.name}</p>
+					<p><a href={track.external_urls.spotify} target="_blank">Play {track.name} in Spotify</a></p>
 				</div>
 			</div>
         );

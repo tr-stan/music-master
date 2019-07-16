@@ -30117,7 +30117,7 @@ var ArtistList = function ArtistList(props) {
         onClick: props.getArtist.bind(null, artist, artist.name, artist.id)
       }, _react.default.createElement("img", {
         src: artist.images.length ? artist.images[0]['url'] : _mirrorBall.default
-      }), _react.default.createElement("h3", null, artist.name)));
+      }), _react.default.createElement("p", null, artist.name)));
     });
     return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Artists"), _react.default.createElement("ul", null, artistList));
   } else {
@@ -30147,9 +30147,7 @@ var TopTracks = function TopTracks(props) {
       onClick: props.getTrack.bind(null, track, track.name)
     }, track.name);
   });
-  return _react.default.createElement("div", {
-    className: "details"
-  }, _react.default.createElement("h3", null, "Top Tracks on Spotify"), _react.default.createElement("ul", null, tracks));
+  return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Top Tracks on Spotify"), _react.default.createElement("ul", null, tracks));
 };
 
 var _default = TopTracks;
@@ -30174,14 +30172,16 @@ var ArtistProfile = function ArtistProfile(props) {
   if (props.artist) {
     return _react.default.createElement("div", {
       className: "profile"
+    }, _react.default.createElement("img", {
+      src: props.artist.images.length ? props.artist.images[0]['url'] : _mirrorBall.default
+    }), _react.default.createElement("div", {
+      className: "details"
     }, _react.default.createElement("h2", {
       className: "name"
-    }, props.artist.name), _react.default.createElement("img", {
-      src: props.artist.images.length ? props.artist.images[0]['url'] : _mirrorBall.default
-    }), _react.default.createElement(_TopTracks.default, {
+    }, props.artist.name), _react.default.createElement(_TopTracks.default, {
       topTracks: props.topTracks,
       getTrack: props.getTrack
-    }));
+    })));
   } else {
     return _react.default.createElement("div", null, _react.default.createElement("p", null, "Could not retrieve artist data. Please try again."));
   }
@@ -30250,7 +30250,10 @@ var TrackProfile = function TrackProfile(_ref) {
       src: track.album.images.length > 0 ? track.album.images[0].url : _mirrorBall.default
     }), _react.default.createElement("div", {
       className: "details"
-    }, _react.default.createElement("h2", null, track.name), _react.default.createElement("p", null, "Album: ", track.album.name), _react.default.createElement("p", null, "By: ", track.artists[0].name)));
+    }, _react.default.createElement("h2", null, track.name), _react.default.createElement("p", null, "By: ", track.artists[0].name), _react.default.createElement("p", null, "Album: ", track.album.name), _react.default.createElement("p", null, _react.default.createElement("a", {
+      href: track.external_urls.spotify,
+      target: "_blank"
+    }, "Play ", track.name, " in Spotify"))));
   } else {
     return _react.default.createElement("div", null, _react.default.createElement("p", null, "Could not retrieve track data. Please try again."));
   }
@@ -30558,11 +30561,11 @@ function (_Component) {
         onChange: this.updateQuery,
         onKeyPress: this.handleKeyPress,
         placeholder: "Search for an artist"
-      }), _react.default.createElement("button", {
+      }), _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: this.searchArtists
       }, "Search Artists"), _react.default.createElement("button", {
         onClick: this.searchTracks
-      }, "Search Tracks"))), _react.default.createElement(_router.Router, null, _react.default.createElement(_Home.default, {
+      }, "Search Tracks")))), _react.default.createElement(_router.Router, null, _react.default.createElement(_Home.default, {
         path: "/"
       }), _react.default.createElement(_ArtistList.default, {
         path: "/artists",
@@ -30579,7 +30582,8 @@ function (_Component) {
         getTrack: this.getTrack
       }), _react.default.createElement(_TrackProfile.default, {
         path: "/tracks/:trackName",
-        track: this.state.track
+        track: this.state.track,
+        getArtist: this.getArtist
       }), _react.default.createElement(_BadSearch.default, {
         path: "/bad-search"
       })));
